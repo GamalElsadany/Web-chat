@@ -19,8 +19,8 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
+    const user= await User.findOne({ email });
+    if (user)
       return res.status(400).json({ message: "Email already exists" });
 
     const salt = await bcrypt.genSalt(10);
@@ -32,8 +32,10 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     });
 
+    if (newUser){
+
+      generateToken(newUser._id, res);
     await newUser.save();
-    generateToken(newUser._id, res);
 
     res.status(201).json({
       _id: newUser._id,
@@ -43,9 +45,12 @@ export const signup = async (req, res) => {
     });
 
     //TODO: send a welcome email to user
-
+    
+  }else{
+    res.status(400).json({message:"Invalid user data"})
+  }
   } catch (error) {
     console.log("Error in signup controller:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: " Internal Server error" });
   }
 };
