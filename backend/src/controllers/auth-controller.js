@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
 import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import { ENV } from "../lib/env.js";
-import { ifError } from "assert";
 import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {

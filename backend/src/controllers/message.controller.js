@@ -1,7 +1,6 @@
-import cloudinary from "../lib/cloudinary.js";
-import { getReceiverSocketId, io } from "../lib/socket.js";
-import Message from "../models/Message.js";
-import User from "../models/User.js";
+import User from "../../models/user.js";
+import Message from "../models/message.js";
+
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -14,6 +13,7 @@ export const getAllContacts = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 export const getMessagesByUserId = async (req, res) => {
   try {
@@ -33,6 +33,7 @@ export const getMessagesByUserId = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 export const sendMessage = async (req, res) => {
   try {
